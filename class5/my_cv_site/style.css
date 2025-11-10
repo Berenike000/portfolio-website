@@ -1,0 +1,239 @@
+:root {
+    /* Light palette */
+    --bg: #ffc2d4;
+    --text: #8a2846;
+    --muted: #b9375e;
+    --card: #ff9ebb;
+    --border: #ff9ebb;
+    --accent: #b9375e;
+    --accent-muted: #ff7aa2;
+    --bg-image-url: url('pictures/pinkflowers.jpg'); /* pink flowers for light mode */
+}
+
+/* Blur background through a pseudo-element for body */
+body::before {
+    content: "";
+    position: fixed;
+    z-index: -1;
+    inset: 0;
+    background-image: var(--bg-image-url);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    filter: blur(7px);
+    opacity: 0.75;
+    pointer-events: none;
+}
+
+/* Remove the background image from body directly for clarity, keep solid color fallback */
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        /* Dark palette */
+        --bg: #1b003d;
+        --text: #c77dff;
+        --muted: #9d4edd;
+        --card: #3c096c;
+        --border: #5a189a;
+        --accent: #7b2cbf;
+        --accent-muted: #240046;
+        --bg-image-url: url('pictures/violetflowers.jpg'); /* violet flowers for dark mode */
+    }
+}
+
+.container {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.site-header {
+    position: sticky;
+    top: 0;
+    background: linear-gradient(to bottom, var(--bg) 75%, transparent);
+    backdrop-filter: blur(6px);
+    z-index: 10;
+}
+
+.header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 0;
+}
+
+.identity {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.avatar {
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    object-fit: cover;
+}
+
+.headline .name {
+    font-size: 1.875rem;
+    margin: 0 0 4px 0;
+}
+
+.headline .role {
+    margin: 0;
+    color: var(--muted);
+}
+
+.theme-toggle {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    border-radius: 999px;
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.main {
+    padding: 24px 0 48px 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+}
+
+@media (min-width: 720px) {
+    .main {
+        grid-template-columns: 1fr 1fr;
+    }
+    #about {
+        grid-column: 1 / -1;
+    }
+    /* Make #contact as wide as #about in desktop layout */
+    #contact {
+        grid-column: 1 / -1;
+    }
+}
+
+.card {
+    background-color: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 20px 16px 20px;
+}
+
+h1, h2, h3 {
+    line-height: 1.25;
+}
+
+h2 {
+    font-size: 1.25rem;
+    margin: 0 0 12px 0;
+}
+
+h3 {
+    font-size: 1.05rem;
+    margin: 0 0 6px 0;
+}
+
+p {
+    margin: 0 0 12px 0;
+}
+
+.skills {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.skills li {
+    border: 1px solid var(--border);
+    background-color: var(--accent-muted);
+    color: var(--text);
+    border-radius: 999px;
+    padding: 6px 10px;
+    font-size: 0.95rem;
+}
+
+.edu-item {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.edu-role {
+    color: var(--muted);
+    margin: 0;
+}
+
+.edu-meta {
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+.contact {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 8px;
+}
+
+.contact a {
+    color: var(--text);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+}
+
+.contact a:hover {
+    border-bottom-color: var(--accent);
+}
+
+.site-footer {
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    padding: 24px 0 40px 0;
+}
+
+/* Explicit dark mode when JS toggles a class */
+body.theme-dark {
+    /* Explicit dark override */
+    --bg: #10002b;
+    --text: #e0aaff;
+    --muted: #c77dff;
+    --card: #240046;
+    --border: #3c096c;
+    --accent: #9d4edd;
+    --accent-muted: #1b003d;
+    --bg-image-url: url('pictures/violetflowers.jpg'); /* explicitly set */
+}
+
+/* Explicit light mode override to win over prefers-color-scheme: dark */
+body.theme-light {
+    /* Explicit light override */
+    --bg: #ffe0e9;
+    --text: #602437;
+    --muted: #8a2846;
+    --card: #ffffff;
+    --border: #ffc2d4;
+    --accent: #e05780;
+    --accent-muted: #ffedf3;
+    --bg-image-url: url('pictures/pinkflowers.jpg'); /* explicitly set */
+}
